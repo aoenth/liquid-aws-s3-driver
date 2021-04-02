@@ -4,6 +4,7 @@ import PackageDescription
 let package = Package(
     name: "liquid-aws-s3-driver",
     platforms: [
+       .iOS(.v12),
        .macOS(.v10_15)
     ],
     products: [
