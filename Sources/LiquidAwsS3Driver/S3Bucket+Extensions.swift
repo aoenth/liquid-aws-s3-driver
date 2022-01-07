@@ -7,15 +7,14 @@
 
 import Foundation
 
-extension S3.Bucket: ExpressibleByStringLiteral {
-
+struct S3Bucket: ExpressibleByStringLiteral {
     /// Create a Bucket object using a String literal
     public init(stringLiteral value: String) {
-        self = .init(name: value)
+        
     }
 }
 
-extension S3.Bucket {
+extension S3Bucket {
 
     ///
     /// Simple bucket name validator

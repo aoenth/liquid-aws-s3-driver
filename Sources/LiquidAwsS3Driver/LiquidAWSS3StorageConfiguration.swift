@@ -5,16 +5,18 @@
 //  Created by Tibor Bodecs on 2020. 04. 28..
 //
 
-struct LiquidAwsS3StorageConfiguration: FileStorageConfiguration {
+import LiquidKit
+import AWSS3
+
+struct Region: 
+
+struct LiquidAWSS3StorageConfiguration: FileStorageConfiguration {
 
 	enum Kind {
 		case awsS3
 		case scalewayS3
 	}
-	
-    /// AWSClient credential provider object
-    let credentialProvider: CredentialProviderFactory
-    
+
     /// AWS Region
     let region: Region
     

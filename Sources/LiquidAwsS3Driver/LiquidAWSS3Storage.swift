@@ -5,15 +5,18 @@
 //  Created by Tibor Bodecs on 2020. 04. 28..
 //
 
-import Foundation
+import LiquidKit
+import AWSS3
 
 /// AWS S3 File Storage implementation
-struct LiquidAwsS3Storage: FileStorage {
+struct LiquidAWSS3Storage: FileStorage {
 	
-    let configuration: LiquidAwsS3StorageConfiguration
+    let configuration: LiquidAWSS3StorageConfiguration
     let context: FileStorageContext
 
-	init(configuration: LiquidAwsS3StorageConfiguration, context: FileStorageContext, client: AWSClient)
+	init(configuration: LiquidAWSS3StorageConfiguration,
+         context: FileStorageContext,
+         client: S3Client)
 	{
         self.configuration = configuration
         self.context = context
@@ -22,13 +25,13 @@ struct LiquidAwsS3Storage: FileStorage {
             fatalError("Invalid bucket name")
         }
 
-        self.s3 = S3(client: client, region: configuration.region, endpoint: endpoint)
+        self.s3 = S3Client(region: configuration.region)
     }
     
     // MARK: - private
 
     /// private s3 reference
-    private var s3: S3!
+    private var s3: S3Client!
 	
     /// private helper for accessing region name
     private var region: String { configuration.region.rawValue }
