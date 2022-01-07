@@ -5,14 +5,14 @@ let package = Package(
     name: "liquid-aws-s3-driver",
     platforms: [
        .iOS(.v12),
-       .macOS(.v10_15),
+       .macOS(.v10_15)
     ],
     products: [
         .library(name: "LiquidAwsS3Driver", targets: ["LiquidAwsS3Driver"]),
     ],
     dependencies: [
         .package(url: "https://github.com/binarybirds/liquid-kit.git", from: "1.2.0"),
-        .package(url: "https://github.com/soto-project/soto.git", from: "5.11.0")
+        .package(url: "https://github.com/soto-project/soto.git", from: "5.3.0")
     ],
     targets: [
         .target(name: "LiquidAwsS3Driver", dependencies: [
