@@ -1,12 +1,13 @@
 //
-//  LiquidAwsS3Storage.swift
-//  LiquidAwsS3Driver
+//  LiquidAWSS3Storage.swift
+//  LiquidAWSS3Driver
 //
 //  Created by Tibor Bodecs on 2020. 04. 28..
 //
 
-import LiquidKit
 import AWSS3
+import Foundation
+import LiquidKit
 
 /// AWS S3 File Storage implementation
 struct LiquidAWSS3Storage: FileStorage {
@@ -25,7 +26,7 @@ struct LiquidAWSS3Storage: FileStorage {
             fatalError("Invalid bucket name")
         }
 
-        self.s3 = S3Client(region: configuration.region)
+        self.s3 = client
     }
     
     // MARK: - private
@@ -34,20 +35,14 @@ struct LiquidAWSS3Storage: FileStorage {
     private var s3: S3Client!
 	
     /// private helper for accessing region name
-    private var region: String { configuration.region.rawValue }
+    private var region: String { configuration.region.name }
     
 	/// private helper for accessing bucket name
-    private var bucket: String { configuration.bucket.name! }
+    private var bucket: String { configuration.bucket.name }
     
 	/// private helper for accessing the endpoint URL as a String
     private var endpoint: String {
-		switch configuration.kind {
-		case .awsS3:
-			return configuration.endpoint ?? "https://s3.\(region).amazonaws.com"
-			
-		case .scalewayS3:
-			return configuration.endpoint ?? "https://s3.\(region).scw.cloud"
-		}
+        configuration.endpoint ?? "https://s3.\(region).amazonaws.com"
 	}
     
 	/// private helper for accessing the publicEndpoint URL as a String
@@ -56,17 +51,11 @@ struct LiquidAWSS3Storage: FileStorage {
 			return customEndpoint + "/" + bucket
 		}
 
-		switch configuration.kind {
-		case .awsS3:
-			/// http://www.wryway.com/blog/aws-s3-url-styles/
-			if region == "us-east-1" {
-				return "https://\(bucket).s3.amazonaws.com"
-			}			
-			return "https://\(bucket).s3-\(region).amazonaws.com"
-
-		case .scalewayS3:
-			return "https://\(bucket).s3.\(region).scw.cloud"
-		}
+        /// http://www.wryway.com/blog/aws-s3-url-styles/
+        if region == "us-east-1" {
+            return "https://\(bucket).s3.amazonaws.com"
+        }
+        return "https://\(bucket).s3-\(region).amazonaws.com"
     }
     
     // MARK: - api
@@ -77,7 +66,13 @@ struct LiquidAWSS3Storage: FileStorage {
     /// Uploads a file using a key and a data object returning the resolved URL of the uploaded file
     /// https://docs.aws.amazon.com/general/latest/gr/s3.html
     func upload(key: String, data: Data) -> EventLoopFuture<String> {
-        s3.putObject(S3.PutObjectRequest(acl: .publicRead, body: .data(data), bucket: bucket, contentLength: Int64(data.count), key: key)).map { _ in resolve(key: key) }
+        let future = 
+        let input = PutObjectInput(
+            aCL: .publicRead,
+            body: .from(data: data),
+            bucket: bucket,
+            contentLength: data.count)
+        s3.putObject(input: input, completion: <#T##(SdkResult<PutObjectOutputResponse, PutObjectOutputError>) -> Void#>)
     }
 
     /// Create a directory structure for a given key
