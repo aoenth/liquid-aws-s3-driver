@@ -41,15 +41,15 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         XCTAssertEqual(res, fs.resolve(key: key))
     }
 
-//    func testCreateDirectory() async throws {
-//        let key = "dir01/dir02/dir03"
-//        let _ = try await fs.createDirectory(key: key)
-//        let keys1 = try await fs.list(key: "dir01")
-//        XCTAssertEqual(keys1, ["dir02"])
-//        let keys2 = try await fs.list(key: "dir01/dir02")
-//        XCTAssertEqual(keys2, ["dir03"])
-//    }
-//    
+    func testCreateDirectory() async throws {
+        let key = "dir01/dir02/dir03"
+        let _ = try await fs.createDirectory(key: key)
+        let keys1 = try await fs.list(key: "dir01")
+        XCTAssertEqual(keys1, ["dir02"])
+        let keys2 = try await fs.list(key: "dir01/dir02")
+        XCTAssertEqual(keys2, ["dir03"])
+    }
+    
     func _testList() async throws {
         let key1 = "dir02/dir03"
         let _ = try await fs.createDirectory(key: key1)
@@ -92,9 +92,9 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         let res2 = try await fs.copy(key: key, to: dest)
         XCTAssertEqual(res2, fs.resolve(key: dest))
 
-        let res3 = try await fs.exists(key: key)
+        let res3 = await fs.exists(key: key)
         XCTAssertTrue(res3)
-        let res4 = try await fs.exists(key: dest)
+        let res4 = await fs.exists(key: dest)
         XCTAssertTrue(res4)
     }
 
@@ -105,22 +105,22 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         XCTAssertEqual(res, fs.resolve(key: key))
 
         let dest = "test-05.txt"
-        let res2 = try await fs.move(key: key, to: dest)()
+        let res2 = try await fs.move(key: key, to: dest)
         XCTAssertEqual(res2, fs.resolve(key: dest))
 
-        let res3 = try await fs.exists(key: key)()
+        let res3 = await fs.exists(key: key)
         XCTAssertFalse(res3)
-        let res4 = try await fs.exists(key: dest)()
+        let res4 = await fs.exists(key: dest)
         XCTAssertTrue(res4)
     }
 
-    func testGetObject() throws {
+    func _testGetObject() async throws {
         let key = "test-04.txt"
         let data = Data("file storage test 04".utf8)
-        let res = try awaitupload(key: key, data: data)()
+        let res = try await fs.upload(key: key, data: data)
         XCTAssertEqual(res, fs.resolve(key: key))
 
-        let obj = try awaitgetObject(key: key)()
+        let obj = try await fs.getObject(key: key)
         XCTAssertNotNil(obj)
         XCTAssertEqual(obj, data)
     }
