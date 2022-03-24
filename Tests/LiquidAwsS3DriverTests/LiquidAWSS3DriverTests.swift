@@ -1,8 +1,9 @@
 import XCTest
+import LiquidKit
 @testable import LiquidAwsS3Driver
 
-final class LiquidAwsS3DriverTests: XCTestCase {
-    
+final class LiquidAWSS3DriverTests: XCTestCase {
+
     static var storages: FileStorages!
 
     static var dotenv: [String: String] = {
@@ -24,7 +25,7 @@ final class LiquidAwsS3DriverTests: XCTestCase {
         }
         return dotenv
     }()
-    
+
     override class func setUp() {
         super.setUp()
 
@@ -51,12 +52,12 @@ final class LiquidAwsS3DriverTests: XCTestCase {
 
     override class func tearDown() {
         super.tearDown()
-        
+
         storages.shutdown()
     }
-    
-    // MARK: - private
-    
+
+    // MARK: - Private
+
     private var fs: FileStorage {
         let elg = MultiThreadedEventLoopGroup(numberOfThreads: 1)
         return Self.storages.fileStorage(.awsS3, logger: .init(label: "[test-logger]"), on: elg.next())!
@@ -76,7 +77,7 @@ final class LiquidAwsS3DriverTests: XCTestCase {
             XCTAssertTrue(S3.Bucket(name: value).hasValidName())
         }
     }
-    
+
     func testInvalidBucketNames() {
         [
             ".bucket",
@@ -93,7 +94,7 @@ final class LiquidAwsS3DriverTests: XCTestCase {
             XCTAssertFalse(S3.Bucket(name: value).hasValidName())
         }
     }
-    
+
     func testUpload() throws {
         let key = "test-01.txt"
         let data = Data("file storage test 01".utf8)
