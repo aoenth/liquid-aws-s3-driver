@@ -15,10 +15,10 @@ struct LiquidAWSS3StorageDriver: FileStorageDriver {
     let configuration: LiquidAWSS3StorageConfiguration
     let client: S3Client
 
-    init(configuration: LiquidAWSS3StorageConfiguration) {
+    init(configuration: LiquidAWSS3StorageConfiguration) async {
         self.configuration = configuration
         do {
-            self.client = try S3Client(region: configuration.region.name)
+            self.client = try await S3Client(region: configuration.region.name)
         } catch {
             fatalError("Cannot instanticate S3Client: \(error.localizedDescription)")
         }
@@ -26,7 +26,10 @@ struct LiquidAWSS3StorageDriver: FileStorageDriver {
 
     /// creates a new AWS S3 based FileStorage object
     func makeStorage(with context: FileStorageContext) -> FileStorage {
-        LiquidAWSS3Storage(configuration: configuration, context: context, client: client)
+        LiquidAWSS3Storage(
+            configuration: configuration,
+            context: context, client: client
+        )
     }
 
     /// shutdown the AWSClient if needed

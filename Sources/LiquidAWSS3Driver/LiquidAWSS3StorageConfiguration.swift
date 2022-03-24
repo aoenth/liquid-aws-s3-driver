@@ -27,8 +27,8 @@ struct LiquidAWSS3StorageConfiguration: FileStorageConfiguration {
     let endpoint: String?
 
     /// creates a new FileStrorageDriver using the AWS S3 configuration object
-    func makeDriver(for databases: FileStorages) -> FileStorageDriver {
-        LiquidAWSS3StorageDriver(configuration: self)
+    func makeDriver(for databases: FileStorages) async -> FileStorageDriver {
+        await LiquidAWSS3StorageDriver(configuration: self)
     }
 }
 

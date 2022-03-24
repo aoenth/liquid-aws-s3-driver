@@ -87,7 +87,7 @@ struct LiquidAWSS3Storage: FileStorage {
 
     /// List objects under a given key
     func list(key: String? = nil) async throws -> [String] {
-        let input = ListObjectsInput(prefix: key)
+        let input = ListObjectsInput(bucket: bucket, prefix: key)
         let response = try await s3.listObjects(input: input)
         guard let objects = response.contents else { return [] }
         return objects.compactMap(\.key)
@@ -101,7 +101,7 @@ struct LiquidAWSS3Storage: FileStorage {
                                     copySource: bucket + "/" + source,
                                     key: destination)
         _ = try await s3.copyObject(input: input)
-        return source
+        return resolve(key: destination)
     }
     
     func move(key source: String, to destination: String) async throws -> String {
@@ -132,7 +132,7 @@ struct LiquidAWSS3Storage: FileStorage {
         } catch GetObjectOutputError.noSuchKey(_) {
             return false
         } catch {
-            print(#file + String(describing: #line) + ": Unable to check object existence: " + error.localizedDescription)
+            print(#file + String(describing: #line) + ": Unable to check object existence: " + String(describing: error))
             return false
         }
         return true

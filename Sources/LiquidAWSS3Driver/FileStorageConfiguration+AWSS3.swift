@@ -14,8 +14,7 @@ public extension FileStorageConfigurationFactory {
         .init {
             LiquidAWSS3StorageConfiguration(region: region,
                                             bucket: bucket,
-											endpoint: endpoint,
-											kind: .awsS3)
+											endpoint: nil)
         }
     }
 }
