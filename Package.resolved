@@ -2,39 +2,48 @@
   "object": {
     "pins": [
       {
-        "package": "async-http-client",
-        "repositoryURL": "https://github.com/swift-server/async-http-client.git",
+        "package": "AwsCrt",
+        "repositoryURL": "https://github.com/awslabs/aws-crt-swift.git",
         "state": {
           "branch": null,
-          "revision": "ba845ee93d6ea10671e829ebf273b6f7a0c92ef0",
-          "version": "1.2.4"
+          "revision": "d654b82a55aec736ad8b4354027acab17394a060",
+          "version": "0.2.2"
+        }
+      },
+      {
+        "package": "AWSSwiftSDK",
+        "repositoryURL": "https://github.com/awslabs/aws-sdk-swift",
+        "state": {
+          "branch": null,
+          "revision": "6b2c6336bf55ed352a7291fc42c85fb0c8ebba6a",
+          "version": "0.2.3"
         }
       },
       {
         "package": "liquid-kit",
-        "repositoryURL": "https://github.com/binarybirds/liquid-kit.git",
+        "repositoryURL": "https://github.com/aoenth/liquid-kit.git",
         "state": {
-          "branch": null,
-          "revision": "1a765f00acd7743878b871c9841507e85d37c567",
-          "version": "1.2.0"
+          "branch": "main",
+          "revision": "0be4b805ea9bcaf1cea9486c23736a177072eecd",
+          "version": null
         }
       },
       {
-        "package": "soto",
-        "repositoryURL": "https://github.com/soto-project/soto.git",
+        "package": "ClientRuntime",
+        "repositoryURL": "https://github.com/awslabs/smithy-swift.git",
         "state": {
           "branch": null,
-          "revision": "d4bdc1cdd2422ab6058bb2cec04b3fbc7ded14e2",
-          "version": "5.3.0"
+          "revision": "5c76b8f05f70f2b24276a2ae192fa8bd9c04beb6",
+          "version": "0.2.3"
         }
       },
       {
-        "package": "soto-core",
-        "repositoryURL": "https://github.com/soto-project/soto-core.git",
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections",
         "state": {
           "branch": null,
-          "revision": "69d9bf8c4e9418ced238b4c41a2c805c7f3c4b2d",
-          "version": "5.2.0"
+          "revision": "48254824bb4248676bf7ce56014ff57b142b77eb",
+          "version": "1.0.2"
         }
       },
       {
@@ -47,48 +56,21 @@
         }
       },
       {
-        "package": "swift-metrics",
-        "repositoryURL": "https://github.com/apple/swift-metrics.git",
-        "state": {
-          "branch": null,
-          "revision": "e382458581b05839a571c578e90060fff499f101",
-          "version": "2.1.1"
-        }
-      },
-      {
         "package": "swift-nio",
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "6d3ca7e54e06a69d0f2612c2ce8bb8b7319085a4",
-          "version": "2.26.0"
+          "revision": "d6e3762e0a5f7ede652559f53623baf11006e17c",
+          "version": "2.39.0"
         }
       },
       {
-        "package": "swift-nio-extras",
-        "repositoryURL": "https://github.com/apple/swift-nio-extras.git",
+        "package": "XMLCoder",
+        "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
         "state": {
           "branch": null,
-          "revision": "de1c80ad1fdff1ba772bcef6b392c3ef735f39a6",
-          "version": "1.8.0"
-        }
-      },
-      {
-        "package": "swift-nio-ssl",
-        "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
-        "state": {
-          "branch": null,
-          "revision": "bbb38fbcbbe9dc4665b2c638dfa5681b01079bfb",
-          "version": "2.10.4"
-        }
-      },
-      {
-        "package": "swift-nio-transport-services",
-        "repositoryURL": "https://github.com/apple/swift-nio-transport-services.git",
-        "state": {
-          "branch": null,
-          "revision": "1d28d48e071727f4558a8a4bb1894472abc47a58",
-          "version": "1.9.2"
+          "revision": "f30119af03996939cc4f54e0bf0dda9f88a84da5",
+          "version": "0.13.1"
         }
       }
     ]

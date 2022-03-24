@@ -7,15 +7,13 @@
 
 import Foundation
 
-extension S3.Bucket: ExpressibleByStringLiteral {
+public struct S3Bucket: ExpressibleByStringLiteral {
+    let name: String
 
     /// Create a Bucket object using a String literal
     public init(stringLiteral value: String) {
-        self = .init(name: value)
+        self.name = value
     }
-}
-
-extension S3.Bucket {
 
     ///
     /// Simple bucket name validator
@@ -30,7 +28,6 @@ extension S3.Bucket {
         let valid = validStartEnd.union(CharacterSet(charactersIn: ".-"))
 
         guard
-            let name = name,
             name.count >= 3,
             name.count <= 63,
             name.unicodeScalars.allSatisfy({ valid.contains($0) }),
