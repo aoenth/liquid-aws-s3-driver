@@ -1,4 +1,4 @@
-# LiquidAwsS3Driver
+# LiquidAWSS3Driver
 
 AWS S3 driver implementation for the [LiquidKit](https://github.com/BinaryBirds/liquid-kit) file storage solution, based on the [Soto for AWS](https://github.com/soto-project/soto) project.
 
