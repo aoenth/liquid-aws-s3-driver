@@ -2,21 +2,21 @@
   "object": {
     "pins": [
       {
-        "package": "AwsCrt",
+        "package": "aws-crt-swift",
         "repositoryURL": "https://github.com/awslabs/aws-crt-swift.git",
         "state": {
           "branch": null,
-          "revision": "d654b82a55aec736ad8b4354027acab17394a060",
-          "version": "0.2.2"
+          "revision": "838deb5de707f157986e4baa95439cbcac9f3fcf",
+          "version": "0.12.0"
         }
       },
       {
-        "package": "AWSSwiftSDK",
+        "package": "aws-sdk-swift",
         "repositoryURL": "https://github.com/awslabs/aws-sdk-swift",
         "state": {
           "branch": null,
-          "revision": "6b2c6336bf55ed352a7291fc42c85fb0c8ebba6a",
-          "version": "0.2.3"
+          "revision": "da209bead20dcb0a3eee5b9d0be688d04c695a76",
+          "version": "0.19.0"
         }
       },
       {
@@ -29,12 +29,12 @@
         }
       },
       {
-        "package": "ClientRuntime",
+        "package": "smithy-swift",
         "repositoryURL": "https://github.com/awslabs/smithy-swift.git",
         "state": {
           "branch": null,
-          "revision": "5c76b8f05f70f2b24276a2ae192fa8bd9c04beb6",
-          "version": "0.2.3"
+          "revision": "a33997bab5090f92fc565d0cb356d4e2fae509af",
+          "version": "0.22.0"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/MaxDesiatov/XMLCoder.git",
         "state": {
           "branch": null,
-          "revision": "f30119af03996939cc4f54e0bf0dda9f88a84da5",
-          "version": "0.13.1"
+          "revision": "80b4a1646399b8e4e0ce80711653476a85bd5e37",
+          "version": "0.17.0"
         }
       }
     ]

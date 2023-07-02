@@ -67,7 +67,6 @@ struct LiquidAWSS3Storage: FileStorage {
     /// https://docs.aws.amazon.com/general/latest/gr/s3.html
     func upload(key: String, data: Data) async throws -> String {
         let input = PutObjectInput(
-            aCL: .publicRead,
             body: .from(data: data),
             bucket: bucket,
             key: key)
@@ -78,7 +77,6 @@ struct LiquidAWSS3Storage: FileStorage {
     /// Create a directory structure for a given key
     func createDirectory(key: String) async throws {
         let input = PutObjectInput(
-            aCL: .publicRead,
             bucket: bucket,
             contentLength: 0,
             key: key)
@@ -116,7 +114,7 @@ struct LiquidAWSS3Storage: FileStorage {
         }
         let input = GetObjectInput(bucket: bucket, key: source)
         let response = try await s3.getObject(input: input)
-        return response.body?.toBytes().toData()
+        return try await response.body?.readData()
     }
 
     /// Removes a file resource using a key
@@ -129,8 +127,6 @@ struct LiquidAWSS3Storage: FileStorage {
         let input = GetObjectInput(bucket: bucket, key: key)
         do {
             _ = try await s3.getObject(input: input)
-        } catch GetObjectOutputError.noSuchKey(_) {
-            return false
         } catch {
             print(#file + String(describing: #line) + ": Unable to check object existence: " + String(describing: error))
             return false
