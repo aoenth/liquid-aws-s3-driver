@@ -11,7 +11,7 @@ let package = Package(
         .library(name: "LiquidAWSS3Driver", targets: ["LiquidAWSS3Driver"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/aoenth/liquid-kit.git", branch: "main"),
+        .package(url: "https://github.com/aoenth/liquid-kit.git", from: "1.3.5"),
         .package(name: "AWSSwiftSDK", url: "https://github.com/awslabs/aws-sdk-swift", from: "0.19.0"),
     ],
     targets: [
