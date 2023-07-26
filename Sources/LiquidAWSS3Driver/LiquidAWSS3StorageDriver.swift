@@ -18,7 +18,7 @@ struct LiquidAWSS3StorageDriver: FileStorageDriver {
     init(configuration: LiquidAWSS3StorageConfiguration) async {
         self.configuration = configuration
         do {
-            self.client = try await S3Client(region: configuration.region.name)
+            self.client = try S3Client(region: configuration.region.name)
         } catch {
             fatalError("Cannot instanticate S3Client: \(error.localizedDescription)")
         }

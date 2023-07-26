@@ -1,6 +1,7 @@
 import XCTest
 import LiquidKit
 import NIO
+
 @testable import LiquidAWSS3Driver
 
 final class LiquidAWSS3DriverTests: XCTestCase {
@@ -14,7 +15,7 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         let fileio = NonBlockingFileIO(threadPool: pool)
         storages = FileStorages(fileio: fileio)
         storages.use(.awsS3(region: "us-east-2",
-                            bucket: "ppnn-photos"), as: .awsS3)
+                            bucket: "ppnn-photos-development"), as: .awsS3)
         storages.default(to: .awsS3)
     }
 
@@ -34,7 +35,8 @@ final class LiquidAWSS3DriverTests: XCTestCase {
     }
 
     // MARK: - tests
-    func _testUpload() async throws {
+    
+    func testUpload() async throws {
         let key = "test-01.txt"
         let data = Data("file storage test 01".utf8)
         let res = try await fs.upload(key: key, data: data)
@@ -45,12 +47,12 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         let key = "dir01/dir02/dir03"
         let _ = try await fs.createDirectory(key: key)
         let keys1 = try await fs.list(key: "dir01")
-        XCTAssertEqual(keys1, ["dir02"])
+        XCTAssertEqual(keys1, ["dir01/dir02/dir03"])
         let keys2 = try await fs.list(key: "dir01/dir02")
-        XCTAssertEqual(keys2, ["dir03"])
+        XCTAssertEqual(keys2, ["dir01/dir02/dir03"])
     }
     
-    func _testList() async throws {
+    func testList() async throws {
         let key1 = "dir02/dir03"
         let _ = try await fs.createDirectory(key: key1)
 
@@ -59,10 +61,10 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         _ = try await fs.upload(key: key2, data: data)
 
         let resource = try await fs.list(key: "dir02")
-        XCTAssertEqual(resource, ["dir03", "test-01.txt"])
+        XCTAssertEqual(resource, ["dir02/dir03", "dir02/test-01.txt"])
     }
 
-    func _testExists() async throws {
+    func testExists() async throws {
         let key1 = "non-existing-thing"
         let exists1 = await fs.exists(key: key1)
         XCTAssertFalse(exists1)
@@ -73,15 +75,15 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         XCTAssertTrue(exists2)
     }
 
-    func _testListFile() async throws {
+    func testListFile() async throws {
         let key2 = "dir04/test-01.txt"
         let data = Data("test".utf8)
         _ = try await fs.upload(key: key2, data: data)
         let res = try await fs.list(key: key2)
-        XCTAssertEqual(res, [])
+        XCTAssertEqual(res, [key2])
     }
 
-    func _testCopy() async throws {
+    func testCopy() async throws {
         let key = "test-02.txt"
         let data = Data("file storage test 02".utf8)
 
@@ -98,7 +100,7 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         XCTAssertTrue(res4)
     }
 
-    func _testMove() async throws {
+    func testMove() async throws {
         let key = "test-04.txt"
         let data = Data("file storage test 04".utf8)
         let res = try await fs.upload(key: key, data: data)
@@ -106,7 +108,7 @@ final class LiquidAWSS3DriverTests: XCTestCase {
 
         let dest = "test-05.txt"
         let res2 = try await fs.move(key: key, to: dest)
-        XCTAssertEqual(res2, fs.resolve(key: dest))
+        XCTAssertEqual("https://ppnn-photos-development.s3-us-east-2.amazonaws.com/test-05.txt", fs.resolve(key: dest))
 
         let res3 = await fs.exists(key: key)
         XCTAssertFalse(res3)
@@ -114,7 +116,7 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         XCTAssertTrue(res4)
     }
 
-    func _testGetObject() async throws {
+    func testGetObject() async throws {
         let key = "test-04.txt"
         let data = Data("file storage test 04".utf8)
         let res = try await fs.upload(key: key, data: data)
