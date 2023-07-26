@@ -1,9 +1,10 @@
 # LiquidAWSS3Driver
 
-AWS S3 driver implementation for the [LiquidKit](https://github.com/BinaryBirds/liquid-kit) file storage solution, based on the [Soto for AWS](https://github.com/soto-project/soto) project.
 
-LiquidKit and the AWS S3 driver is also compatible with Vapor 4 through the [Liquid](https://github.com/BinaryBirds/liquid) repository, that contains Vapor specific extensions.
 
+AWS S3 driver implementation for the [LiquidKit](https://github.com/aoenth/liquid-kit) file storage solution, based on the [AWS Swift SDK](https://aws.amazon.com/sdk-for-swift/) project.
+
+LiquidKit and the AWS S3 driver is also compatible with Vapor 4 through the [Liquid](https://github.com/aoenth/liquid) repository, that contains Vapor specific extensions.
 
 ## Key resolution for S3 objects
 
@@ -55,13 +56,13 @@ let package = Package(
        .macOS(.v10_15)
     ],
     dependencies: [
-        .package(url: "https://github.com/binarybirds/liquid", from: "1.2.0"),
-        .package(url: "https://github.com/binarybirds/liquid-aws-s3-driver", from: "1.2.0"),
+        .package(url: "https://github.com/aoenth/liquid", from: "1.3.3"),
+        .package(url: "https://github.com/aoenth/liquid-aws-s3-driver", from: "1.2.2"),
     ],
     targets: [
         .target(name: "App", dependencies: [
             .product(name: "Liquid", package: "liquid"),
-            .product(name: "LiquidAwsS3Driver", package: "liquid-aws-s3-driver"),
+            .product(name: "LiquidAWSS3Driver", package: "liquid-aws-s3-driver"),
         ]),
     ]
 )
@@ -93,3 +94,6 @@ let url = req.fs.resolve(key: key)
 try req.fs.delete(key: key).wait()
 
 ```
+
+## Credits
+Forked from Binary Bird's [LiquidAwsS3Driver](https://github.com/BinaryBirds/liquid-aws-s3-driver) project that was based on the [Soto for AWS](https://github.com/soto-project/soto) project.
