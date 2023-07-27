@@ -31,7 +31,7 @@ final class LiquidAWSS3DriverTests: XCTestCase {
 
     override func setUp() async throws {
         let elg = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-        fs = await Self.storages.fileStorage(.awsS3, logger: .init(label: "[test-logger]"), on: elg.next())!
+        fs = Self.storages.fileStorage(.awsS3, logger: .init(label: "[test-logger]"), on: elg.next())!
     }
 
     // MARK: - tests
@@ -107,7 +107,7 @@ final class LiquidAWSS3DriverTests: XCTestCase {
         XCTAssertEqual(res, fs.resolve(key: key))
 
         let dest = "test-05.txt"
-        let res2 = try await fs.move(key: key, to: dest)
+        _ = try await fs.move(key: key, to: dest)
         XCTAssertEqual("https://ppnn-photos-development.s3-us-east-2.amazonaws.com/test-05.txt", fs.resolve(key: dest))
 
         let res3 = await fs.exists(key: key)

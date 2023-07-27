@@ -15,7 +15,7 @@ struct LiquidAWSS3StorageDriver: FileStorageDriver {
     let configuration: LiquidAWSS3StorageConfiguration
     let client: S3Client
 
-    init(configuration: LiquidAWSS3StorageConfiguration) async {
+    init(configuration: LiquidAWSS3StorageConfiguration) {
         self.configuration = configuration
         do {
             self.client = try S3Client(region: configuration.region.name)
